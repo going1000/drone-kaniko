@@ -247,7 +247,6 @@ func run(c *cli.Context) error {
 			Verbosity:        c.String("verbosity"),
 			Platform:         c.String("platform"),
 			SkipUnusedStages: c.Bool("skip-unused-stages"),
-			RepoPath:         c.String("repo-path"),
 		},
 		Artifact: kaniko.Artifact{
 			Tags:         c.StringSlice("tags"),
