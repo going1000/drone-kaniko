@@ -1,0 +1,17 @@
+FROM golang:1.21 as builder-env
+WORKDIR /root
+ENV GOPROXY=https://goproxy.cn
+ENV TZ=Asia/Shanghai
+
+COPY go.mod .
+COPY go.sum .
+COPY cmd cmd
+COPY pkg pkg
+
+RUN go mod download
+RUN go build -o /data/kaniko-docker cmd/kaniko-docker
+
+FROM bitnami/kaniko:1.19.1
+ENV KANIKO_VERSION=1.9.1
+COPY --from=builder-env /data/kaniko-docker /kaniko/
+ENTRYPOINT ["/kaniko/kaniko-docker"]
