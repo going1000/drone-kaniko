@@ -22,7 +22,6 @@ steps:
   commands:
   - go test ./...
   - sh scripts/build.sh
-
 - name: docker
   image: plugins/docker
   settings:
