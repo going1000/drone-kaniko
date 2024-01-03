@@ -1,12 +1,7 @@
 #!/bin/sh
 
-# force go modules
-export GOPATH=""
-
 # disable cgo
 export CGO_ENABLED=0
-
-export GOPROXY=https://goproxy.cn
 
 set -e
 set -x

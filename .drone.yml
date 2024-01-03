@@ -13,6 +13,12 @@ trigger:
 steps:
 - name: build
   image: golang:1.21
+  volumes:
+    - name: go-cache
+      path: /root/go
+  environment:
+    GOPROXY: https://goproxy.cn
+    GOPATH: /root/go
   commands:
   - go test ./...
   - sh scripts/build.sh
@@ -29,7 +35,11 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-  when:
-    event:
-      exclude:
-      - pull_request
+
+volumes:
+  - name: go-cache
+    host:
+      path: /var/lib/go
+
+image_pull_secrets:
+  - dockerconfigjson
